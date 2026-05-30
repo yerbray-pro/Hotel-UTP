@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hotel UTP — Sistema de Gestión</title>
     <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   </head>
   <body>
     <div class="app-shell">
@@ -19,11 +19,24 @@
         </div>
 
         <nav class="sidebar-nav">
-          <button type="button" style="display:none" class="nav-link" data-screen="dashboard">Dashboard</button>
-          <button type="button" style="display:none" class="nav-link" data-screen="reservas">Reservas</button>
-          <button type="button" style="display:none" class="nav-link" data-screen="habitaciones">Habitaciones</button>
-          <button type="button" style="display:none" class="nav-link" data-screen="huespedes">Huéspedes</button>
-          <button type="button" style="display:none" class="nav-link" data-screen="historial">Historial</button>
+          <button type="button" style="display:none" class="nav-link" data-screen="dashboard">
+            <span class="nav-icon">⊞</span> Dashboard
+          </button>
+          <button type="button" style="display:none" class="nav-link" data-screen="reservas">
+            <span class="nav-icon">📋</span> Reservas
+          </button>
+          <button type="button" style="display:none" class="nav-link" data-screen="habitaciones">
+            <span class="nav-icon">🛏</span> Habitaciones
+          </button>
+          <button type="button" style="display:none" class="nav-link" data-screen="huespedes">
+            <span class="nav-icon">👤</span> Huéspedes
+          </button>
+          <button type="button" style="display:none" class="nav-link" data-screen="historial">
+            <span class="nav-icon">🕒</span> Historial
+          </button>
+          <button type="button" style="display:none" class="nav-link nav-link--admin" data-screen="usuarios">
+            <span class="nav-icon">🔑</span> Usuarios
+          </button>
         </nav>
 
         <div class="sidebar-footer">
@@ -37,37 +50,53 @@
 
       <main class="app-main">
 
-        <!-- LOGIN -->
+        <!-- ══════════ LOGIN ══════════ -->
         <section class="screen screen-login active" id="screen-login">
           <div class="login-wrapper">
+
+            <!-- Panel izquierdo decorativo -->
             <div class="login-hero">
-              <div class="login-hero-text">
-                <span class="tag">Bienvenido</span>
-                <h2>Hotel UTP</h2>
+              <div class="login-hero-pattern"></div>
+              <div class="login-hero-content">
+                <div class="login-hero-eyebrow">Sistema de Gestión</div>
+                <h2>Hotel <em>UTP</em></h2>
                 <p>Gestión integral de reservas, habitaciones y huéspedes desde un solo lugar.</p>
+                <div class="login-hero-badges">
+                  <span class="hero-badge">Reservas</span>
+                  <span class="hero-badge">Habitaciones</span>
+                  <span class="hero-badge">Huéspedes</span>
+                  <span class="hero-badge">Reportes</span>
+                </div>
               </div>
             </div>
-            <div class="card login-card">
-              <div class="card-header-login">
-                <h3>Iniciar sesión</h3>
-                <p>Ingresa tus credenciales para continuar</p>
+
+            <!-- Panel derecho - formulario -->
+            <div class="login-panel">
+              <div class="login-panel-inner">
+                <div class="login-panel-brand">
+                  <div class="login-panel-brand-mark">U</div>
+                  <span>Hotel UTP</span>
+                </div>
+                <h3 class="login-heading">Bienvenido</h3>
+                <p class="login-subheading">Ingresa tus credenciales para acceder al sistema</p>
+                <form id="loginForm" class="login-form" autocomplete="off">
+                  <label>
+                    Usuario
+                    <input type="text" id="loginUser" placeholder="Nombre de usuario" required />
+                  </label>
+                  <label>
+                    Contraseña
+                    <input type="password" id="loginPassword" placeholder="••••••••" required />
+                  </label>
+                  <button type="submit" class="btn btn-primary" style="margin-top:4px;">Ingresar al sistema</button>
+                </form>
               </div>
-              <form id="loginForm" class="login-form" autocomplete="off">
-                <label>
-                  Usuario
-                  <input type="text" id="loginUser" placeholder="Nombre de usuario" required />
-                </label>
-                <label>
-                  Contraseña
-                  <input type="password" id="loginPassword" placeholder="Contraseña" required />
-                </label>
-                <button type="submit" class="btn btn-primary">Ingresar</button>
-              </form>
             </div>
+
           </div>
         </section>
 
-        <!-- DASHBOARD -->
+        <!-- ══════════ DASHBOARD ══════════ -->
         <section class="screen" id="dashboard">
           <div class="page-header">
             <div>
@@ -76,7 +105,7 @@
               <p>Resumen de ocupación, reservas activas y alertas del día.</p>
             </div>
             <div class="page-actions">
-              <button type="button" class="btn btn-primary" data-screen="reservas">Nueva reserva</button>
+              <button type="button" class="btn btn-primary" data-screen="reservas">+ Nueva reserva</button>
             </div>
           </div>
 
@@ -119,14 +148,14 @@
             </div>
             <div class="card card--compact">
               <div class="card-header">
-                <h3>Alertas</h3>
+                <h3>Alertas del día</h3>
               </div>
-              <ul class="timeline-list" id="alertasList"></ul>
+              <ul class="alertas-list" id="alertasList"></ul>
             </div>
           </div>
         </section>
 
-        <!-- RESERVAS -->
+        <!-- ══════════ RESERVAS ══════════ -->
         <section class="screen" id="reservas">
           <div class="page-header">
             <div>
@@ -137,39 +166,51 @@
           </div>
 
           <div class="grid split-2">
-            <div class="card">
-              <div class="card-header">
-                <h3>Nueva reserva</h3>
+            <div id="reservaFormContainer">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Nueva reserva</h3>
+                </div>
+                <form id="reservaForm" class="order-form">
+                  <label>
+                    Nombre del huésped
+                    <input type="text" id="resHuesped" placeholder="Nombre completo (solo letras)" required autocomplete="off" />
+                    <span class="field-hint">Solo letras y espacios · mínimo 5 caracteres</span>
+                  </label>
+                  <label>
+                    Documento (cédula / pasaporte)
+                    <input type="text" id="resDocumento" placeholder="Solo números" required inputmode="numeric" autocomplete="off" />
+                    <span class="field-hint">Solo dígitos · mínimo 6 números</span>
+                  </label>
+                  <label>
+                    Habitación
+                    <select id="resHabitacion" required>
+                      <option value="">Seleccionar habitación...</option>
+                    </select>
+                  </label>
+                  <div class="date-row">
+                    <label>
+                      Check-in
+                      <input type="date" id="resCheckin" required />
+                    </label>
+                    <label>
+                      Check-out
+                      <input type="date" id="resCheckout" required />
+                    </label>
+                  </div>
+                  <label>
+                    Observaciones
+                    <textarea id="resNotas" rows="2" maxlength="300" placeholder="Solicitudes especiales..."></textarea>
+                  </label>
+                  <button type="submit" class="btn btn-primary">Crear reserva</button>
+                </form>
               </div>
-              <form id="reservaForm" class="order-form">
-                <label>
-                  Nombre del huésped
-                  <input type="text" id="resHuesped" placeholder="Nombre completo" required />
-                </label>
-                <label>
-                  Documento
-                  <input type="text" id="resDocumento" placeholder="Cédula o pasaporte" required />
-                </label>
-                <label>
-                  Habitación
-                  <select id="resHabitacion" required>
-                    <option value="">Seleccionar habitación...</option>
-                  </select>
-                </label>
-                <label>
-                  Check-in
-                  <input type="date" id="resCheckin" required />
-                </label>
-                <label>
-                  Check-out
-                  <input type="date" id="resCheckout" required />
-                </label>
-                <label>
-                  Observaciones
-                  <textarea id="resNotas" rows="2" maxlength="300" placeholder="Solicitudes especiales..."></textarea>
-                </label>
-                <button type="submit" class="btn btn-primary">Crear reserva</button>
-              </form>
+            </div>
+
+            <div id="reservaNopermiso" style="display:none" class="card permiso-card">
+              <div class="permiso-icon">🔒</div>
+              <h3>Sin permiso</h3>
+              <p>Tu rol no permite crear nuevas reservas.<br>Contacta a un Administrador o Gerente.</p>
             </div>
 
             <div class="card">
@@ -202,7 +243,7 @@
           </div>
         </section>
 
-        <!-- HABITACIONES -->
+        <!-- ══════════ HABITACIONES ══════════ -->
         <section class="screen" id="habitaciones">
           <div class="page-header">
             <div>
@@ -222,7 +263,7 @@
           <div class="habitaciones-grid" id="habitacionesGrid"></div>
         </section>
 
-        <!-- HUESPEDES -->
+        <!-- ══════════ HUÉSPEDES ══════════ -->
         <section class="screen" id="huespedes">
           <div class="page-header">
             <div>
@@ -250,17 +291,117 @@
           </div>
         </section>
 
-        <!-- HISTORIAL -->
+        <!-- ══════════ HISTORIAL ══════════ -->
         <section class="screen" id="historial">
           <div class="page-header">
             <div>
               <span class="page-label">Historial</span>
               <h2>Historial de Actividad</h2>
-              <p>Registro de todos los eventos del sistema.</p>
+              <p>Registro detallado de todos los eventos del sistema.</p>
+            </div>
+            <div class="historial-header-filters page-actions">
+              <select id="filtroHistorial" class="btn btn-secondary" style="font-weight:600;font-size:0.82rem;">
+                <option value="Todos">Todos los eventos</option>
+                <option value="creada">Creación</option>
+                <option value="Check-in">Check-in</option>
+                <option value="Check-out">Check-out</option>
+                <option value="cancelada">Cancelación</option>
+              </select>
             </div>
           </div>
           <div class="card">
-            <ul class="timeline-line" id="historialTimeline"></ul>
+            <div class="timeline-container">
+              <ul class="timeline-line" id="historialTimeline"></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ══════════ USUARIOS (solo Administrador) ══════════ -->
+        <section class="screen" id="usuarios">
+          <div class="page-header">
+            <div>
+              <span class="page-label">Administración</span>
+              <h2>Gestión de Usuarios</h2>
+              <p>Crea usuarios, cambia roles y controla el acceso al sistema.</p>
+            </div>
+          </div>
+
+          <div class="grid split-2">
+            <div class="card">
+              <div class="card-header">
+                <h3>Nuevo usuario</h3>
+              </div>
+              <form id="usuarioForm" class="order-form">
+                <label>
+                  Nombre completo
+                  <input type="text" id="uNombre" placeholder="Nombre visible (solo letras)" required />
+                  <span class="field-hint nombre-hint">Solo letras y espacios · mínimo 3 caracteres</span>
+                </label>
+                <label>
+                  Nombre de usuario
+                  <input type="text" id="uUsername" placeholder="Para iniciar sesión" required />
+                </label>
+                <label>
+                  Contraseña
+                  <input type="password" id="uPassword" placeholder="Mínimo 4 caracteres" required />
+                </label>
+                <label>
+                  Rol
+                  <select id="uRole">
+                    <option value="Recepcionista">Recepcionista</option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Administrador">Administrador</option>
+                  </select>
+                </label>
+                <button type="submit" class="btn btn-primary">Crear usuario</button>
+              </form>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Tabla de permisos</h3>
+              </div>
+              <table class="data-table permisos-table">
+                <thead>
+                  <tr>
+                    <th>Función</th>
+                    <th>Recep.</th>
+                    <th>Gerente</th>
+                    <th>Admin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Dashboard</td>         <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Ver reservas</td>       <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Crear reserva</td>      <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Cancelar reserva</td>   <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Habitaciones</td>       <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Cambiar hab.</td>       <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Ver huéspedes</td>      <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Ver historial</td>      <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
+                  <tr><td>Gestionar usuarios</td> <td class="p-no">✗</td><td class="p-no">✗</td><td class="p-yes">✓</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 22px;">
+            <div class="card-header">
+              <h3>Usuarios registrados</h3>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Usuario</th>
+                  <th>Rol</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="usuariosTable"></tbody>
+            </table>
           </div>
         </section>
 
