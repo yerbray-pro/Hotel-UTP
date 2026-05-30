@@ -115,6 +115,12 @@ let reservas = [
   },
 ];
 
+const alertas = [
+  'Habitación 104 en mantenimiento hasta el 30/05.',
+  'Check-out pendiente: RES-003 — Jorge Mendoza (hab. 203).',
+  'RES-002 — llegada tardía después de las 10pm.',
+];
+
 // ── Utilidades ────────────────────────────────────────────────
 function formatDate(d) {
   if (!d) return '—';
@@ -269,20 +275,11 @@ function attachInputValidation() {
 
 // ── Navegación ────────────────────────────────────────────────
 function showScreen(screenId) {
-  if (!appState.currentUser) { showScreen('screen-login'); return; }
-
-  const role    = appState.currentUser.role;
-  const permitidas = PERMISOS[role]?.screens || [];
-
-  if (screenId !== 'screen-login' && !permitidas.includes(screenId)) {
-    showToast('No tienes permiso para acceder a esa sección.', 'danger');
-    return;
-  }
-
   screens.forEach(s => s.classList.toggle('active', s.id === screenId));
+  window.scrollTo({ top: 0, behavior: 'instant' });
 
   if (screenId === 'screen-login') {
-    navLinks.forEach(l => l.style.display = 'none');
+    navLinks.forEach(l => { l.style.display = 'none'; });
     if (logoutBtn) logoutBtn.style.display = 'none';
     if (userInfo)  userInfo.style.display  = 'none';
     return;
@@ -291,53 +288,51 @@ function showScreen(screenId) {
   if (logoutBtn) logoutBtn.style.display = 'block';
   if (userInfo)  userInfo.style.display  = 'flex';
 
+  const role = appState.currentUser?.role;
   navLinks.forEach(link => {
-    const target = link.dataset.screen;
-    link.style.display = permitidas.includes(target) ? '' : 'none';
-    link.classList.toggle('active', target === screenId);
+    link.style.display = '';
+    link.classList.toggle('active', link.dataset.screen === screenId);
+    // Ocultar pantallas según rol
+    if (role === 'Recepcionista' && link.dataset.screen === 'huespedes') {
+      link.style.display = 'none';
+    }
   });
-
-  if (screenId === 'dashboard')    renderDashboard();
-  if (screenId === 'reservas')     renderReservas();
-  if (screenId === 'habitaciones') renderHabitaciones();
-  if (screenId === 'huespedes')    renderHuespedes();
-  if (screenId === 'historial')    renderHistorial();
-  if (screenId === 'usuarios')     renderUsuarios();
+    if (screenId === 'dashboard')    renderDashboard();
+    if (screenId === 'reservas')     renderReservas();
+    if (screenId === 'habitaciones') renderHabitaciones();
+    if (screenId === 'huespedes')    renderHuespedes();
+    if (screenId === 'historial')    renderHistorial();
+    if (screenId === 'usuarios')     renderUsuarios();
 }
 
 // ── Dashboard ─────────────────────────────────────────────────
+// 
+
 function renderDashboard() {
-  const ocupadas    = habitaciones.filter(h => h.estado === 'Ocupada').length;
-  const disponibles = habitaciones.filter(h => h.estado === 'Disponible').length;
-  const activas     = reservas.filter(r => r.estado === 'Confirmada' || r.estado === 'Check-in').length;
-  const hoy         = new Date().toISOString().slice(0, 10);
-  const checkoutHoy = reservas.filter(r => r.checkout === hoy).length;
+  const ocupadas     = habitaciones.filter(h => h.estado === 'Ocupada').length;
+  const disponibles  = habitaciones.filter(h => h.estado === 'Disponible').length;
+  const activas      = reservas.filter(r => r.estado === 'Confirmada' || r.estado === 'Check-in').length;
+  const hoy          = new Date().toISOString().slice(0, 10);
+  const checkoutHoy  = reservas.filter(r => r.checkout === hoy).length;
 
   document.getElementById('statOcupadas').textContent    = ocupadas;
   document.getElementById('statDisponibles').textContent = disponibles;
   document.getElementById('statReservas').textContent    = activas;
   document.getElementById('statCheckoutHoy').textContent = checkoutHoy;
 
-  document.getElementById('dashboardReservasTable').innerHTML =
-    reservas.slice(0, 5).map(r => `
-      <tr>
-        <td><code style="font-family:'DM Mono',monospace;font-size:0.82rem;color:var(--primary-dark)">${r.id}</code></td>
-        <td><strong>${r.huesped}</strong></td>
-        <td>Hab. ${r.habitacion}</td>
-        <td>${formatDate(r.checkin)}</td>
-        <td><span class="badge ${getStatusClass(r.estado)}">${r.estado}</span></td>
-      </tr>`).join('');
+  const tbody = document.getElementById('dashboardReservasTable');
+  tbody.innerHTML = reservas.slice(0, 5).map(r => `
+    <tr>
+      <td>${r.id}</td>
+      <td>${r.huesped}</td>
+      <td>Hab. ${r.habitacion}</td>
+      <td>${formatDate(r.checkin)}</td>
+      <td><span class="badge ${getStatusClass(r.estado)}">${r.estado}</span></td>
+    </tr>`
+  ).join('');
 
-  // Alertas mejoradas con tipo y contexto
-  const alertasDinamicas = buildAlertas();
-  document.getElementById('alertasList').innerHTML = alertasDinamicas.map(a => `
-    <li class="alerta-item alerta--${a.tipo}">
-      <div class="alerta-icon-wrap">${a.icon}</div>
-      <div class="alerta-body">
-        <div class="alerta-label">${a.label}</div>
-        <div class="alerta-texto">${a.texto}</div>
-      </div>
-    </li>`).join('') || '<li class="alerta-item alerta--default"><div class="alerta-icon-wrap">✅</div><div class="alerta-body"><div class="alerta-label">Sin alertas</div><div class="alerta-texto">No hay alertas pendientes para hoy.</div></div></li>';
+  const alertasList = document.getElementById('alertasList');
+  alertasList.innerHTML = alertas.map(a => `<li>⚠️ ${a}</li>`).join('');
 }
 
 function buildAlertas() {
@@ -397,7 +392,7 @@ function buildAlertas() {
     });
   });
 
-  return alertas.slice(0, 6);
+   return alertas.slice(0, 6);
 }
 
 // ── Reservas ──────────────────────────────────────────────────
@@ -806,8 +801,8 @@ loginForm?.addEventListener('submit', (e) => {
   document.getElementById('resCheckin').min  = new Date().toISOString().slice(0,10);
   document.getElementById('resCheckout').min = new Date().toISOString().slice(0,10);
 
-  showScreen('dashboard');
-  showToast(`Bienvenido, ${usuario.nombre || usuario.username}`, 'success');
+    showScreen('dashboard');
+    showToast(`Bienvenido, ${usuario.nombre || usuario.username} 👋`, 'success');
 });
 
 // ── Logout ────────────────────────────────────────────────────
