@@ -355,6 +355,28 @@ reservaForm.addEventListener('submit', (e) => {
   const checkout   = document.getElementById('resCheckout').value;
   const notas      = document.getElementById('resNotas').value.trim();
 
+  // Validar nombre del huésped
+if (huesped.length < 5) {
+  alert('El nombre debe tener al menos 5 caracteres.');
+  return;
+}
+
+if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(huesped)) {
+  alert('El nombre solo puede contener letras.');
+  return;
+}
+
+// Validar documento
+if (!/^\d+$/.test(documento)) {
+  alert('El documento solo puede contener números.');
+  return;
+}
+
+if (documento.length < 6) {
+  alert('El documento debe tener al menos 6 dígitos.');
+  return;
+}
+
   if (!huesped || !documento || !habitacion || !checkin || !checkout) {
     alert('Por favor completa todos los campos obligatorios.');
     return;
