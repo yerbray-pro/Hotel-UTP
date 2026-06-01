@@ -289,13 +289,20 @@ function showScreen(screenId) {
   if (userInfo)  userInfo.style.display  = 'flex';
 
   const role = appState.currentUser?.role;
+  const permisosRol = PERMISOS[role] || {};
+
+  // Si no-admin intenta entrar a usuarios, redirigir al dashboard
+  if (screenId === 'usuarios' && !permisosRol.gestionarUsuarios) {
+    showToast('No tienes permiso para acceder a esta sección.', 'danger');
+    showScreen('dashboard');
+    return;
+  }
+
   navLinks.forEach(link => {
-    link.style.display = '';
-    link.classList.toggle('active', link.dataset.screen === screenId);
-    // Ocultar pantallas según rol
-    if (role === 'Recepcionista' && link.dataset.screen === 'huespedes') {
-      link.style.display = 'none';
-    }
+    const pantalla = link.dataset.screen;
+    const permitida = !permisosRol.screens || permisosRol.screens.includes(pantalla);
+    link.style.display = permitida ? '' : 'none';
+    link.classList.toggle('active', pantalla === screenId);
   });
     if (screenId === 'dashboard')    renderDashboard();
     if (screenId === 'reservas')     renderReservas();
