@@ -219,3 +219,7 @@ Historial
 
 Se eliminaron los emojis redundantes y se reemplazaron por iconos consistentes de Tabler, que se ven más profesionales en un README.
 Se añadieron descripciones a cada característica, no solo el título. Antes decía "Gestión de habitaciones - Consulta de disponibilidad y estado"; ahora explica qué hace y por qué importa.
+
+# Credenciales de prueba
+
+Las tres cuentas ahora tienen tarjetas visuales con etiquetas de rol codificadas en color (rojo, ámbar, verde), lo que hace más fácil distinguirlas de un vistazo.
