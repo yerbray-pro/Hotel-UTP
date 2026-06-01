@@ -224,6 +224,10 @@ Se añadieron descripciones a cada característica, no solo el título. Antes de
 
 Las tres cuentas ahora tienen tarjetas visuales con etiquetas de rol codificadas en color (rojo, ámbar, verde), lo que hace más fácil distinguirlas de un vistazo.
 
+# Estructura del proyecto
+
+Se añadieron comentarios en línea a cada archivo/carpeta explicando su propósito, lo que ayuda a alguien que entra al proyecto por primera vez.
+
 # Arquitectura
 
 El diagrama ASCII plano se reemplazó por un esquema visual de tres capas que comunica la separación de responsabilidades de forma más clara.
