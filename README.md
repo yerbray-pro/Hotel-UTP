@@ -235,3 +235,7 @@ El diagrama de flechas ahora es horizontal y visualmente conectado, lo que trans
 # Tecnologías
 
 Agrupadas en tres columnas (interfaz, herramientas, diagramación) para facilitar la lectura rápida.
+
+# Estado del proyecto
+
+La barra final consolida versión, año y asignatura en un solo lugar limpio, en lugar de quedar disperso al final del texto.
