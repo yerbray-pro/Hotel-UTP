@@ -227,3 +227,7 @@ Las tres cuentas ahora tienen tarjetas visuales con etiquetas de rol codificadas
 # Arquitectura
 
 El diagrama ASCII plano se reemplazó por un esquema visual de tres capas que comunica la separación de responsabilidades de forma más clara.
+
+# Flujo general
+
+El diagrama de flechas ahora es horizontal y visualmente conectado, lo que transmite mejor el flujo temporal del sistema.
