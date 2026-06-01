@@ -231,3 +231,7 @@ El diagrama ASCII plano se reemplazó por un esquema visual de tres capas que co
 # Flujo general
 
 El diagrama de flechas ahora es horizontal y visualmente conectado, lo que transmite mejor el flujo temporal del sistema.
+
+# Tecnologías
+
+Agrupadas en tres columnas (interfaz, herramientas, diagramación) para facilitar la lectura rápida.
