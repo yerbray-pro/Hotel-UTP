@@ -223,3 +223,7 @@ Se añadieron descripciones a cada característica, no solo el título. Antes de
 # Credenciales de prueba
 
 Las tres cuentas ahora tienen tarjetas visuales con etiquetas de rol codificadas en color (rojo, ámbar, verde), lo que hace más fácil distinguirlas de un vistazo.
+
+# Arquitectura
+
+El diagrama ASCII plano se reemplazó por un esquema visual de tres capas que comunica la separación de responsabilidades de forma más clara.
