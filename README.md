@@ -228,6 +228,10 @@ Las tres cuentas ahora tienen tarjetas visuales con etiquetas de rol codificadas
 
 Se añadieron comentarios en línea a cada archivo/carpeta explicando su propósito, lo que ayuda a alguien que entra al proyecto por primera vez.
 
+# Funcionalidades
+
+Cada módulo ahora tiene su propia sección con descripción más detallada en lugar de una lista de verbos solos (Crear reservas, Modificar reservas). 
+
 # Arquitectura
 
 El diagrama ASCII plano se reemplazó por un esquema visual de tres capas que comunica la separación de responsabilidades de forma más clara.
