@@ -1,415 +1,242 @@
-<!--//codigo thml -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hotel UTP — Sistema de Gestión</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  </head>
-  <body>
-    <div class="app-shell">
-      <aside class="app-sidebar">
-        <div class="brand">
-          <div class="brand-mark">U</div>
-          <div>
-            <h1>Hotel UTP</h1>
-            <p>Sistema de Gestión</p>
-          </div>
-        </div>
-
-        <nav class="sidebar-nav">
-          <button type="button" style="display:none" class="nav-link" data-screen="dashboard">
-            <span class="nav-icon">⊞</span> Dashboard
-          </button>
-          <button type="button" style="display:none" class="nav-link" data-screen="reservas">
-            <span class="nav-icon">📋</span> Reservas
-          </button>
-          <button type="button" style="display:none" class="nav-link" data-screen="habitaciones">
-            <span class="nav-icon">🛏</span> Habitaciones
-          </button>
-          <button type="button" style="display:none" class="nav-link" data-screen="huespedes">
-            <span class="nav-icon">👤</span> Huéspedes
-          </button>
-          <button type="button" style="display:none" class="nav-link" data-screen="historial">
-            <span class="nav-icon">🕒</span> Historial
-          </button>
-          <button type="button" style="display:none" class="nav-link nav-link--admin" data-screen="usuarios">
-            <span class="nav-icon">🔑</span> Usuarios
-          </button>
-        </nav>
-
-        <div class="sidebar-footer">
-          <div class="user-info" id="userInfo" style="display:none">
-            <span id="userNameDisplay"></span>
-            <span id="userRoleDisplay" class="user-role"></span>
-          </div>
-          <button id="logoutBtn" class="btn btn-secondary" style="display:none">Cerrar sesión</button>
-        </div>
-      </aside>
-
-      <main class="app-main">
-
-        <!-- ══════════ LOGIN ══════════ -->
-        <section class="screen screen-login active" id="screen-login">
-          <div class="login-wrapper">
-
-            <!-- Panel izquierdo decorativo -->
-            <div class="login-hero">
-              <div class="login-hero-pattern"></div>
-              <div class="login-hero-content">
-                <div class="login-hero-eyebrow">Sistema de Gestión</div>
-                <h2>Hotel <em>UTP</em></h2>
-                <p>Gestión integral de reservas, habitaciones y huéspedes desde un solo lugar.</p>
-                <div class="login-hero-badges">
-                  <span class="hero-badge">Reservas</span>
-                  <span class="hero-badge">Habitaciones</span>
-                  <span class="hero-badge">Huéspedes</span>
-                  <span class="hero-badge">Reportes</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Panel derecho - formulario -->
-            <div class="login-panel">
-              <div class="login-panel-inner">
-                <div class="login-panel-brand">
-                  <div class="login-panel-brand-mark">U</div>
-                  <span>Hotel UTP</span>
-                </div>
-                <h3 class="login-heading">Bienvenido</h3>
-                <p class="login-subheading">Ingresa tus credenciales para acceder al sistema</p>
-                <form id="loginForm" class="login-form" autocomplete="off">
-                  <label>
-                    Usuario
-                    <input type="text" id="loginUser" placeholder="Nombre de usuario" required />
-                  </label>
-                  <label>
-                    Contraseña
-                    <input type="password" id="loginPassword" placeholder="••••••••" required />
-                  </label>
-                  <button type="submit" class="btn btn-primary" style="margin-top:4px;">Ingresar al sistema</button>
-                </form>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- ══════════ DASHBOARD ══════════ -->
-        <section class="screen" id="dashboard">
-          <div class="page-header">
-            <div>
-              <span class="page-label">Inicio</span>
-              <h2>Panel General</h2>
-              <p>Resumen de ocupación, reservas activas y alertas del día.</p>
-            </div>
-            <div class="page-actions">
-              <button type="button" class="btn btn-primary" data-screen="reservas">+ Nueva reserva</button>
-            </div>
-          </div>
-
-          <div class="stats-grid">
-            <article class="stat-card stat-card--primary">
-              <h3 id="statOcupadas">0</h3>
-              <p>Habitaciones ocupadas</p>
-            </article>
-            <article class="stat-card stat-card--success">
-              <h3 id="statDisponibles">0</h3>
-              <p>Disponibles</p>
-            </article>
-            <article class="stat-card stat-card--warning">
-              <h3 id="statReservas">0</h3>
-              <p>Reservas activas</p>
-            </article>
-            <article class="stat-card stat-card--info">
-              <h3 id="statCheckoutHoy">0</h3>
-              <p>Check-out hoy</p>
-            </article>
-          </div>
-
-          <div class="grid split-2">
-            <div class="card">
-              <div class="card-header">
-                <h3>Reservas recientes</h3>
-              </div>
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Huésped</th>
-                    <th>Habitación</th>
-                    <th>Check-in</th>
-                    <th>Estado</th>
-                  </tr>
-                </thead>
-                <tbody id="dashboardReservasTable"></tbody>
-              </table>
-            </div>
-            <div class="card card--compact">
-              <div class="card-header">
-                <h3>Alertas del día</h3>
-              </div>
-              <ul class="alertas-list" id="alertasList"></ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- ══════════ RESERVAS ══════════ -->
-        <section class="screen" id="reservas">
-          <div class="page-header">
-            <div>
-              <span class="page-label">Reservas</span>
-              <h2>Gestión de Reservas</h2>
-              <p>Crea y administra las reservas del hotel.</p>
-            </div>
-          </div>
-
-          <div class="grid split-2">
-            <div id="reservaFormContainer">
-              <div class="card">
-                <div class="card-header">
-                  <h3>Nueva reserva</h3>
-                </div>
-                <form id="reservaForm" class="order-form">
-                  <label>
-                    Nombre del huésped
-                    <input type="text" id="resHuesped" placeholder="Nombre completo (solo letras)" required autocomplete="off" />
-                    <span class="field-hint">Solo letras y espacios · mínimo 5 caracteres</span>
-                  </label>
-                  <label>
-                    Documento (cédula / pasaporte)
-                    <input type="text" id="resDocumento" placeholder="Solo números" required inputmode="numeric" autocomplete="off" />
-                    <span class="field-hint">Solo dígitos · mínimo 6 números</span>
-                  </label>
-                  <label>
-                    Habitación
-                    <select id="resHabitacion" required>
-                      <option value="">Seleccionar habitación...</option>
-                    </select>
-                  </label>
-                  <div class="date-row">
-                    <label>
-                      Check-in
-                      <input type="date" id="resCheckin" required />
-                    </label>
-                    <label>
-                      Check-out
-                      <input type="date" id="resCheckout" required />
-                    </label>
-                  </div>
-                  <label>
-                    Observaciones
-                    <textarea id="resNotas" rows="2" maxlength="300" placeholder="Solicitudes especiales..."></textarea>
-                  </label>
-                  <button type="submit" class="btn btn-primary">Crear reserva</button>
-                </form>
-              </div>
-            </div>
-
-            <div id="reservaNopermiso" style="display:none" class="card permiso-card">
-              <div class="permiso-icon">🔒</div>
-              <h3>Sin permiso</h3>
-              <p>Tu rol no permite crear nuevas reservas.<br>Contacta a un Administrador o Gerente.</p>
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                <h3>Reservas activas</h3>
-                <div class="filters-inline">
-                  <select id="filtroEstadoReserva">
-                    <option value="Todos">Todos</option>
-                    <option value="Confirmada">Confirmada</option>
-                    <option value="Check-in">Check-in</option>
-                    <option value="Check-out">Check-out</option>
-                    <option value="Cancelada">Cancelada</option>
-                  </select>
-                </div>
-              </div>
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Huésped</th>
-                    <th>Hab.</th>
-                    <th>Check-in</th>
-                    <th>Estado</th>
-                    <th>Acción</th>
-                  </tr>
-                </thead>
-                <tbody id="reservasTable"></tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- ══════════ HABITACIONES ══════════ -->
-        <section class="screen" id="habitaciones">
-          <div class="page-header">
-            <div>
-              <span class="page-label">Habitaciones</span>
-              <h2>Estado de Habitaciones</h2>
-              <p>Vista general de disponibilidad y mantenimiento.</p>
-            </div>
-            <div class="page-actions">
-              <select id="filtroHabitacion" class="btn btn-secondary" style="font-weight:600;">
-                <option value="Todos">Todas</option>
-                <option value="Disponible">Disponibles</option>
-                <option value="Ocupada">Ocupadas</option>
-                <option value="Mantenimiento">Mantenimiento</option>
-              </select>
-            </div>
-          </div>
-          <div class="habitaciones-grid" id="habitacionesGrid"></div>
-        </section>
-
-        <!-- ══════════ HUÉSPEDES ══════════ -->
-        <section class="screen" id="huespedes">
-          <div class="page-header">
-            <div>
-              <span class="page-label">Huéspedes</span>
-              <h2>Registro de Huéspedes</h2>
-              <p>Historial y datos de todos los huéspedes.</p>
-            </div>
-            <div class="page-actions">
-              <input type="text" id="buscarHuesped" placeholder="Buscar por nombre..." style="max-width:220px; padding:10px 14px;" />
-            </div>
-          </div>
-          <div class="card">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Documento</th>
-                  <th>Nombre</th>
-                  <th>Reservas</th>
-                  <th>Última visita</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody id="huespedesTable"></tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- ══════════ HISTORIAL ══════════ -->
-        <section class="screen" id="historial">
-          <div class="page-header">
-            <div>
-              <span class="page-label">Historial</span>
-              <h2>Historial de Actividad</h2>
-              <p>Registro detallado de todos los eventos del sistema.</p>
-            </div>
-            <div class="historial-header-filters page-actions">
-              <select id="filtroHistorial" class="btn btn-secondary" style="font-weight:600;font-size:0.82rem;">
-                <option value="Todos">Todos los eventos</option>
-                <option value="creada">Creación</option>
-                <option value="Check-in">Check-in</option>
-                <option value="Check-out">Check-out</option>
-                <option value="cancelada">Cancelación</option>
-              </select>
-            </div>
-          </div>
-          <div class="card">
-            <div class="timeline-container">
-              <ul class="timeline-line" id="historialTimeline"></ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- ══════════ USUARIOS (solo Administrador) ══════════ -->
-        <section class="screen" id="usuarios">
-          <div class="page-header">
-            <div>
-              <span class="page-label">Administración</span>
-              <h2>Gestión de Usuarios</h2>
-              <p>Crea usuarios, cambia roles y controla el acceso al sistema.</p>
-            </div>
-          </div>
-
-          <div class="grid split-2">
-            <div class="card">
-              <div class="card-header">
-                <h3>Nuevo usuario</h3>
-              </div>
-              <form id="usuarioForm" class="order-form">
-                <label>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#131009">
+  <title>Portal de clientes | Hotel UTP</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="index" class="public-page">
+  <div class="demo-notice" role="note">Proyecto demostrativo: datos guardados solo en este navegador. No ingreses información personal o bancaria real.</div>
+  <div class="app-shell">
+    
+    <main class="app-main" id="contenido-principal">
+      <section class="screen screen-guest active" id="screen-guest">
+<div class="guest-topbar">
+<div class="guest-brand">
+<div class="brand-mark">U</div>
+<div>
+<h1>Hotel UTP</h1>
+<p>Reserva tu estadía</p>
+</div>
+</div>
+<button class="btn btn-secondary" data-screen="screen-login" type="button">Iniciar sesión (Staff)</button>
+</div>
+<div class="guest-hero">
+<span class="guest-hero-eyebrow">Bienvenido</span>
+<h2>Encuentra tu <em>habitación ideal</em></h2>
+<p>Consulta disponibilidad, reserva en minutos y guarda tu código de confirmación.</p>
+<div class="guest-amenities">
+<span class="guest-amenity">📶 Wifi gratis</span>
+<span class="guest-amenity">🍳 Desayuno incluido</span>
+<span class="guest-amenity">🛎️ Recepción 24h</span>
+<span class="guest-amenity">🚗 Parqueadero</span>
+</div>
+</div>
+<div class="guest-tabs">
+<button class="guest-tab active" data-guesttab="buscar" type="button">🛏️ Reservar habitación</button>
+<button class="guest-tab" data-guesttab="consultar" type="button">🔎 Consultar mi reserva</button>
+</div>
+<!-- ── TAB: BUSCAR / RESERVAR ── -->
+<div class="guest-tab-panel active" id="guestTabBuscar">
+<div class="card guest-search-card">
+<div class="card-header">
+<h3>¿Cuándo nos visitas?</h3>
+</div>
+<form class="guest-search-form" id="guestSearchForm">
+<label>
+                  Check-in
+                  <input id="guestCheckin" required="" type="date"/>
+</label>
+<label>
+                  Check-out
+                  <input id="guestCheckout" required="" type="date"/>
+</label>
+<label>
+                  Huéspedes
+                  <input id="guestPersonas" max="10" min="1" required="" type="number" value="1"/>
+</label>
+<button class="btn btn-primary" type="submit">Buscar disponibilidad</button>
+</form>
+</div>
+<div class="guest-rooms-grid" id="guestRoomsResults"></div>
+<!-- Formulario de datos del huésped -->
+<div class="card guest-booking-card" id="guestBookingCard" style="display:none">
+<div class="card-header">
+<h3>Completa tus datos</h3>
+</div>
+<div class="guest-booking-summary" id="guestBookingSummary"></div>
+<form class="order-form" id="guestBookingForm">
+<label>
                   Nombre completo
-                  <input type="text" id="uNombre" placeholder="Nombre visible (solo letras)" required />
-                  <span class="field-hint nombre-hint">Solo letras y espacios · mínimo 3 caracteres</span>
-                </label>
-                <label>
-                  Nombre de usuario
-                  <input type="text" id="uUsername" placeholder="Para iniciar sesión" required />
-                </label>
-                <label>
-                  Contraseña
-                  <input type="password" id="uPassword" placeholder="Mínimo 4 caracteres" required />
-                </label>
-                <label>
-                  Rol
-                  <select id="uRole">
-                    <option value="Recepcionista">Recepcionista</option>
-                    <option value="Gerente">Gerente</option>
-                    <option value="Administrador">Administrador</option>
-                  </select>
-                </label>
-                <button type="submit" class="btn btn-primary">Crear usuario</button>
-              </form>
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                <h3>Tabla de permisos</h3>
-              </div>
-              <table class="data-table permisos-table">
-                <thead>
-                  <tr>
-                    <th>Función</th>
-                    <th>Recep.</th>
-                    <th>Gerente</th>
-                    <th>Admin</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Dashboard</td>         <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Ver reservas</td>       <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Crear reserva</td>      <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Cancelar reserva</td>   <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Habitaciones</td>       <td class="p-yes">✓</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Cambiar hab.</td>       <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Ver huéspedes</td>      <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Ver historial</td>      <td class="p-no">✗</td><td class="p-yes">✓</td><td class="p-yes">✓</td></tr>
-                  <tr><td>Gestionar usuarios</td> <td class="p-no">✗</td><td class="p-no">✗</td><td class="p-yes">✓</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top: 22px;">
-            <div class="card-header">
-              <h3>Usuarios registrados</h3>
-            </div>
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nombre</th>
-                  <th>Usuario</th>
-                  <th>Rol</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="usuariosTable"></tbody>
-            </table>
-          </div>
-        </section>
-
-      </main>
-    </div>
-
-    <div id="toast" class="toast"></div>
-    <script src="./app.js"></script>
-  </body>
+                  <input autocomplete="off" id="guestNombre" placeholder="Nombre completo (solo letras)" required="" type="text"/>
+<span class="field-hint">Solo letras y espacios · mínimo 5 caracteres</span>
+</label>
+<label>
+                  Documento (cédula / pasaporte)
+                  <input autocomplete="off" id="guestDocumento" inputmode="numeric" placeholder="Solo números" required="" type="text"/>
+<span class="field-hint">Solo dígitos · mínimo 6 números</span>
+</label>
+<label>
+                  Correo electrónico
+                  <input autocomplete="off" id="guestCorreo" placeholder="correo@ejemplo.com" required="" type="email"/>
+<span class="field-hint">Correo de contacto de ejemplo. No se enviará un correo automático</span>
+</label>
+<label>
+                  Teléfono de contacto
+                  <input autocomplete="off" id="guestTelefono" inputmode="tel" placeholder="Número de contacto" type="text"/>
+</label>
+<label>
+                  Observaciones
+                  <textarea id="guestNotas" maxlength="300" placeholder="Solicitudes especiales..." rows="2"></textarea>
+</label>
+<div class="guest-booking-actions">
+<button class="btn btn-secondary" id="guestBookingCancelBtn" type="button">Cancelar</button>
+<button class="btn btn-primary" type="submit">Confirmar reserva</button>
+</div>
+</form>
+</div>
+<!-- Pago de la reserva -->
+<div class="card guest-payment-card" id="guestPaymentCard" style="display:none">
+<div class="card-header">
+<h3>Método de pago</h3>
+</div>
+<div class="guest-booking-summary" id="guestPaymentSummary"></div>
+<div class="payment-methods">
+<button class="payment-method-btn active" data-method="tarjeta" type="button">
+<span class="payment-method-icon">💳</span><span>Tarjeta</span>
+</button>
+<button class="payment-method-btn" data-method="pse" type="button">
+<span class="payment-method-icon">🏦</span><span>PSE</span>
+</button>
+<button class="payment-method-btn" data-method="abono" type="button">
+<span class="payment-method-icon">📄</span><span>Abono</span>
+</button>
+</div>
+<form class="order-form" id="guestPaymentForm">
+<div class="payment-panel active" data-panel="tarjeta">
+<label>
+                    Número de tarjeta
+                    <input autocomplete="off" id="cardNumero" inputmode="numeric" placeholder="4242 4242 4242 4242 (prueba)" type="text"/>
+</label>
+<div class="date-row">
+<label>
+                      Vencimiento
+                      <input autocomplete="off" id="cardVenc" inputmode="numeric" placeholder="MM/AA" type="text"/>
+</label>
+<label>
+                      CVV
+                      <input autocomplete="off" id="cardCvv" inputmode="numeric" placeholder="123" type="password"/>
+</label>
+</div>
+<label>
+                    Nombre en la tarjeta
+                    <input autocomplete="off" id="cardNombre" placeholder="Como aparece en la tarjeta" type="text"/>
+</label>
+</div>
+<div class="payment-panel" data-panel="pse">
+<label>
+                    Banco
+                    <select id="pseBanco">
+<option value="">Selecciona tu banco...</option>
+<option>Bancolombia</option>
+<option>Banco de Bogotá</option>
+<option>Davivienda</option>
+<option>BBVA Colombia</option>
+<option>Banco de Occidente</option>
+<option>Banco Popular</option>
+<option>Nequi</option>
+<option>Daviplata</option>
+</select>
+</label>
+<div class="date-row">
+<label>
+                      Tipo de persona
+                      <select id="psePersona">
+<option value="Natural">Natural</option>
+<option value="Jurídica">Jurídica</option>
+</select>
+</label>
+<label>
+                      Tipo de documento
+                      <select id="pseTipoDoc">
+<option value="CC">Cédula de ciudadanía</option>
+<option value="CE">Cédula de extranjería</option>
+<option value="NIT">NIT</option>
+<option value="PA">Pasaporte</option>
+</select>
+</label>
+</div>
+<label>
+                    Número de documento
+                    <input autocomplete="off" id="pseDocumento" inputmode="numeric" placeholder="Sin puntos ni espacios" type="text"/>
+</label>
+</div>
+<div class="payment-panel" data-panel="abono">
+<p class="payment-panel-hint">Elige cuánto deseas abonar ahora. El saldo restante se paga en el check-in.</p>
+<div class="abono-options">
+<button class="abono-opt" data-pct="30" type="button">Abono 30%</button>
+<button class="abono-opt" data-pct="50" type="button">Abono 50%</button>
+<button class="abono-opt active" data-pct="100" type="button">Pago 100%</button>
+</div>
+<label>
+                    Monto a abonar
+                    <input id="abonoMonto" min="0" step="1000" type="number"/>
+</label>
+<div class="guest-booking-summary abono-resumen">
+<div class="guest-summary-row"><span>Saldo pendiente</span><strong id="abonoSaldo">$0</strong></div>
+</div>
+</div>
+<div class="payment-security">🔒 Demostración: no se procesan pagos reales. No ingreses datos bancarios auténticos.</div>
+<div class="guest-booking-actions">
+<button class="btn btn-secondary" id="guestPaymentBackBtn" type="button">Atrás</button>
+<button class="btn btn-primary" id="guestPaymentSubmitBtn" type="submit">Simular pago y confirmar</button>
+</div>
+</form>
+</div>
+<!-- Confirmación con código de reserva -->
+<div class="card guest-confirm-card" id="guestConfirmCard" style="display:none">
+<div class="guest-confirm-icon">✅</div>
+<h3>¡Reserva de prueba registrada!</h3>
+<p id="guestConfirmEmailMsg">Guarda tu código de reserva. Esta demostración no envía correos.</p>
+<span class="guest-confirm-label">Tu código de reserva</span>
+<div class="guest-confirm-code" id="guestConfirmCode">HTL-XXXXXX</div>
+<div class="guest-confirm-details" id="guestConfirmDetails"></div>
+<button class="btn btn-secondary" id="guestConfirmNuevaBtn" type="button">Hacer otra reserva</button>
+</div>
+</div>
+<!-- ── TAB: CONSULTAR RESERVA ── -->
+<div class="guest-tab-panel" id="guestTabConsultar">
+<div class="card guest-lookup-card">
+<div class="card-header">
+<h3>Consulta tu reserva</h3>
+</div>
+<p class="guest-lookup-hint">Ingresa el código que recibiste al confirmar tu reserva.</p>
+<form class="guest-lookup-form" id="guestLookupForm">
+<input autocomplete="off" id="guestLookupCodigo" placeholder="Ej: HTL-AB12CD" type="text"/>
+<button class="btn btn-primary" type="submit">Buscar</button>
+<button class="btn btn-secondary" id="guestLookupClearBtn" type="button">🔄 Limpiar</button>
+</form>
+<div id="guestLookupResult"></div>
+</div>
+</div>
+</section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="modal-overlay" id="confirmOverlay">
+<div aria-modal="true" class="modal-box" role="alertdialog">
+<div class="modal-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+</div>
+<p class="modal-message" id="confirmMessage"></p>
+<div class="modal-actions">
+<button class="btn btn-secondary" id="confirmCancelBtn" type="button">Cancelar</button>
+<button class="btn btn-danger" id="confirmOkBtn" type="button">Confirmar</button>
+</div>
+</div>
+</div>
+  <script type="module" src="assets/js/main.js"></script>
+</body>
 </html>

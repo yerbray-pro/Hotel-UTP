@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#131009">
+  <title>Habitaciones | Hotel UTP</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="habitaciones" class="admin-page">
+  
+  <div class="app-shell">
+    <aside class="app-sidebar">
+<div class="brand">
+<div class="brand-mark">U</div>
+<div>
+<h1>Hotel UTP</h1>
+<p>Sistema de Gestión</p>
+</div>
+</div>
+<nav class="sidebar-nav">
+<a class="nav-link" data-screen="dashboard" href="dashboard.html">
+<span class="nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="9" rx="1.5" width="7" x="3" y="3"></rect><rect height="5" rx="1.5" width="7" x="14" y="3"></rect><rect height="9" rx="1.5" width="7" x="14" y="12"></rect><rect height="5" rx="1.5" width="7" x="3" y="16"></rect></svg></span> Dashboard
+          </a>
+<a class="nav-link" data-screen="reservas" href="reservas.html">
+<span class="nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="17" rx="2" width="18" x="3" y="4"></rect><path d="M3 9h18M8 2v4M16 2v4"></path><path d="m9 15 2 2 4-4"></path></svg></span> Reservas
+          </a>
+<a class="nav-link" data-screen="habitaciones" href="habitaciones.html">
+<span class="nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 17h20M4 17V9a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1"></path><path d="M13 10h5a2 2 0 0 1 2 2v5"></path><path d="M2 21v-3M22 21v-3"></path></svg></span> Habitaciones
+          </a>
+<a class="nav-link" data-screen="huespedes" href="huespedes.html">
+<span class="nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> Huéspedes
+          </a>
+<a class="nav-link" data-screen="historial" href="historial.html">
+<span class="nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 3v5h5"></path><path d="M3.05 13a9 9 0 1 0 2.13-8.36L3 8"></path><path d="M12 7v5l4 2"></path></svg></span> Historial
+          </a>
+<a class="nav-link nav-link--admin" data-screen="usuarios" href="usuarios.html">
+<span class="nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"></circle><path d="m21 2-9.6 9.6"></path><path d="m15.5 7.5 3 3L22 7l-3-3"></path></svg></span> Usuarios
+          </a>
+</nav>
+<div class="sidebar-footer">
+<div class="user-info" id="userInfo">
+<span id="userNameDisplay"></span>
+<span class="user-role" id="userRoleDisplay"></span>
+</div>
+<button class="btn btn-secondary" id="logoutBtn">Cerrar sesión</button>
+<button class="btn btn-secondary" data-screen="screen-guest" id="verPortalBtn" type="button">Ver portal de clientes</button>
+</div>
+</aside>
+    <main class="app-main" id="contenido-principal">
+      <section class="screen active" id="habitaciones">
+<div class="page-header">
+<div>
+<span class="page-label">Habitaciones</span>
+<h2>Estado de Habitaciones</h2>
+<p>Vista general de disponibilidad y mantenimiento.</p>
+</div>
+<div class="page-actions">
+<select class="btn btn-secondary" id="filtroHabitacion" style="font-weight:600;">
+<option value="Todos">Todas</option>
+<option value="Disponible">Disponibles</option>
+<option value="Ocupada">Ocupadas</option>
+<option value="Aseo">En aseo</option>
+<option value="Mantenimiento">Mantenimiento</option>
+</select>
+</div>
+</div>
+<div class="habitaciones-grid" id="habitacionesGrid"></div>
+</section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="modal-overlay" id="confirmOverlay">
+<div aria-modal="true" class="modal-box" role="alertdialog">
+<div class="modal-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+</div>
+<p class="modal-message" id="confirmMessage"></p>
+<div class="modal-actions">
+<button class="btn btn-secondary" id="confirmCancelBtn" type="button">Cancelar</button>
+<button class="btn btn-danger" id="confirmOkBtn" type="button">Confirmar</button>
+</div>
+</div>
+</div>
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

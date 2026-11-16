@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#131009">
+  <title>Acceso del personal | Hotel UTP</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="login" class="public-page">
+  <div class="demo-notice" role="note">Proyecto demostrativo: datos guardados solo en este navegador. No ingreses información personal o bancaria real.</div>
+  <div class="app-shell">
+    
+    <main class="app-main" id="contenido-principal">
+      <section class="screen screen-login active" id="screen-login">
+<div class="login-wrapper">
+<!-- Panel izquierdo decorativo -->
+<div class="login-hero">
+<div class="login-hero-pattern"></div>
+<div class="login-hero-content">
+<div class="login-hero-eyebrow">Sistema de Gestión</div>
+<h2>Hotel <em>UTP</em></h2>
+<p>Gestión integral de reservas, habitaciones y huéspedes desde un solo lugar.</p>
+<div class="login-hero-badges">
+<span class="hero-badge">Reservas</span>
+<span class="hero-badge">Habitaciones</span>
+<span class="hero-badge">Huéspedes</span>
+<span class="hero-badge">Reportes</span>
+</div>
+</div>
+</div>
+<!-- Panel derecho - formulario -->
+<div class="login-panel">
+<div class="login-panel-inner">
+<div class="login-panel-brand">
+<div class="login-panel-brand-mark">U</div>
+<span>Hotel UTP</span>
+</div>
+<button class="guest-back-link" data-screen="screen-guest" type="button">← Volver al inicio</button>
+<h3 class="login-heading">Bienvenido</h3>
+<p class="login-subheading">Ingresa tus credenciales para acceder al sistema</p>
+<form autocomplete="off" class="login-form" id="loginForm">
+<label>
+                    Usuario
+                    <input id="loginUser" placeholder="Nombre de usuario" required="" type="text"/>
+</label>
+<label>
+                    Contraseña
+                    <input id="loginPassword" placeholder="••••••••" required="" type="password"/>
+</label>
+<button class="btn btn-primary" style="margin-top:4px;" type="submit">Ingresar al sistema</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="modal-overlay" id="confirmOverlay">
+<div aria-modal="true" class="modal-box" role="alertdialog">
+<div class="modal-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+</div>
+<p class="modal-message" id="confirmMessage"></p>
+<div class="modal-actions">
+<button class="btn btn-secondary" id="confirmCancelBtn" type="button">Cancelar</button>
+<button class="btn btn-danger" id="confirmOkBtn" type="button">Confirmar</button>
+</div>
+</div>
+</div>
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
